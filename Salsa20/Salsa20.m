@@ -26,7 +26,7 @@ UInt32 readInt32LE(Byte data[], NSInteger offset) {
     
     NSInteger _doubleRounds;
     
-    long _posBlock;
+    unsigned long _posBlock;
     NSInteger _posRemainder;
 }
 
@@ -69,51 +69,51 @@ UInt32 readInt32LE(Byte data[], NSInteger offset) {
 
 - (void)calculateEncryptionOutputFromInput {
     UInt32 x[16];
-    memcpy(x, _tmp, sizeof(_tmp));
+    memcpy(x, _input, sizeof(_input));
     
     UInt32 s;
     for (NSInteger i = _doubleRounds; i > 0; i--) {
-        s = x[ 0] + x[12]; x[ 4] ^= (s <<  7) | (s >> (32 -  7));
-        s = x[ 4] + x[ 0]; x[ 8] ^= (s <<  9) | (s >> (32 -  9));
-        s = x[ 8] + x[ 4]; x[12] ^= (s << 13) | (s >> (32 - 13));
-        s = x[12] + x[ 8]; x[ 0] ^= (s << 18) | (s >> (32 - 18));
-        s = x[ 5] + x[ 1]; x[ 9] ^= (s <<  7) | (s >> (32 -  7));
-        s = x[ 9] + x[ 5]; x[13] ^= (s <<  9) | (s >> (32 -  9));
-        s = x[13] + x[ 9]; x[ 1] ^= (s << 13) | (s >> (32 - 13));
-        s = x[ 1] + x[13]; x[ 5] ^= (s << 18) | (s >> (32 - 18));
-        s = x[10] + x[ 6]; x[14] ^= (s <<  7) | (s >> (32 -  7));
-        s = x[14] + x[10]; x[ 2] ^= (s <<  9) | (s >> (32 -  9));
-        s = x[ 2] + x[14]; x[ 6] ^= (s << 13) | (s >> (32 - 13));
-        s = x[ 6] + x[ 2]; x[10] ^= (s << 18) | (s >> (32 - 18));
-        s = x[15] + x[11]; x[ 3] ^= (s <<  7) | (s >> (32 -  7));
-        s = x[ 3] + x[15]; x[ 7] ^= (s <<  9) | (s >> (32 -  9));
-        s = x[ 7] + x[ 3]; x[11] ^= (s << 13) | (s >> (32 - 13));
-        s = x[11] + x[ 7]; x[15] ^= (s << 18) | (s >> (32 - 18));
-        s = x[ 0] + x[ 3]; x[ 1] ^= (s <<  7) | (s >> (32 -  7));
-        s = x[ 1] + x[ 0]; x[ 2] ^= (s <<  9) | (s >> (32 -  9));
-        s = x[ 2] + x[ 1]; x[ 3] ^= (s << 13) | (s >> (32 - 13));
-        s = x[ 3] + x[ 2]; x[ 0] ^= (s << 18) | (s >> (32 - 18));
-        s = x[ 5] + x[ 4]; x[ 6] ^= (s <<  7) | (s >> (32 -  7));
-        s = x[ 6] + x[ 5]; x[ 7] ^= (s <<  9) | (s >> (32 -  9));
-        s = x[ 7] + x[ 6]; x[ 4] ^= (s << 13) | (s >> (32 - 13));
-        s = x[ 4] + x[ 7]; x[ 5] ^= (s << 18) | (s >> (32 - 18));
-        s = x[10] + x[ 9]; x[11] ^= (s <<  7) | (s >> (32 -  7));
-        s = x[11] + x[10]; x[ 8] ^= (s <<  9) | (s >> (32 -  9));
-        s = x[ 8] + x[11]; x[ 9] ^= (s << 13) | (s >> (32 - 13));
-        s = x[ 9] + x[ 8]; x[10] ^= (s << 18) | (s >> (32 - 18));
-        s = x[15] + x[14]; x[12] ^= (s <<  7) | (s >> (32 -  7));
-        s = x[12] + x[15]; x[13] ^= (s <<  9) | (s >> (32 -  9));
-        s = x[13] + x[12]; x[14] ^= (s << 13) | (s >> (32 - 13));
-        s = x[14] + x[13]; x[15] ^= (s << 18) | (s >> (32 - 18));
+        s = x[ 0] + x[12]; x[ 4] ^= (s << (UInt32) 7) | (s >> (32 - (UInt32) 7));
+        s = x[ 4] + x[ 0]; x[ 8] ^= (s << (UInt32) 9) | (s >> (32 - (UInt32) 9));
+        s = x[ 8] + x[ 4]; x[12] ^= (s << (UInt32)13) | (s >> (32 - (UInt32)13));
+        s = x[12] + x[ 8]; x[ 0] ^= (s << (UInt32)18) | (s >> (32 - (UInt32)18));
+        s = x[ 5] + x[ 1]; x[ 9] ^= (s << (UInt32) 7) | (s >> (32 - (UInt32) 7));
+        s = x[ 9] + x[ 5]; x[13] ^= (s << (UInt32) 9) | (s >> (32 - (UInt32) 9));
+        s = x[13] + x[ 9]; x[ 1] ^= (s << (UInt32)13) | (s >> (32 - (UInt32)13));
+        s = x[ 1] + x[13]; x[ 5] ^= (s << (UInt32)18) | (s >> (32 - (UInt32)18));
+        s = x[10] + x[ 6]; x[14] ^= (s << (UInt32) 7) | (s >> (32 - (UInt32) 7));
+        s = x[14] + x[10]; x[ 2] ^= (s << (UInt32) 9) | (s >> (32 - (UInt32) 9));
+        s = x[ 2] + x[14]; x[ 6] ^= (s << (UInt32)13) | (s >> (32 - (UInt32)13));
+        s = x[ 6] + x[ 2]; x[10] ^= (s << (UInt32)18) | (s >> (32 - (UInt32)18));
+        s = x[15] + x[11]; x[ 3] ^= (s << (UInt32) 7) | (s >> (32 - (UInt32) 7));
+        s = x[ 3] + x[15]; x[ 7] ^= (s << (UInt32) 9) | (s >> (32 - (UInt32) 9));
+        s = x[ 7] + x[ 3]; x[11] ^= (s << (UInt32)13) | (s >> (32 - (UInt32)13));
+        s = x[11] + x[ 7]; x[15] ^= (s << (UInt32)18) | (s >> (32 - (UInt32)18));
+        s = x[ 0] + x[ 3]; x[ 1] ^= (s << (UInt32) 7) | (s >> (32 - (UInt32) 7));
+        s = x[ 1] + x[ 0]; x[ 2] ^= (s << (UInt32) 9) | (s >> (32 - (UInt32) 9));
+        s = x[ 2] + x[ 1]; x[ 3] ^= (s << (UInt32)13) | (s >> (32 - (UInt32)13));
+        s = x[ 3] + x[ 2]; x[ 0] ^= (s << (UInt32)18) | (s >> (32 - (UInt32)18));
+        s = x[ 5] + x[ 4]; x[ 6] ^= (s << (UInt32) 7) | (s >> (32 - (UInt32) 7));
+        s = x[ 6] + x[ 5]; x[ 7] ^= (s << (UInt32) 9) | (s >> (32 - (UInt32) 9));
+        s = x[ 7] + x[ 6]; x[ 4] ^= (s << (UInt32)13) | (s >> (32 - (UInt32)13));
+        s = x[ 4] + x[ 7]; x[ 5] ^= (s << (UInt32)18) | (s >> (32 - (UInt32)18));
+        s = x[10] + x[ 9]; x[11] ^= (s << (UInt32) 7) | (s >> (32 - (UInt32) 7));
+        s = x[11] + x[10]; x[ 8] ^= (s << (UInt32) 9) | (s >> (32 - (UInt32) 9));
+        s = x[ 8] + x[11]; x[ 9] ^= (s << (UInt32)13) | (s >> (32 - (UInt32)13));
+        s = x[ 9] + x[ 8]; x[10] ^= (s << (UInt32)18) | (s >> (32 - (UInt32)18));
+        s = x[15] + x[14]; x[12] ^= (s << (UInt32) 7) | (s >> (32 - (UInt32) 7));
+        s = x[12] + x[15]; x[13] ^= (s << (UInt32) 9) | (s >> (32 - (UInt32) 9));
+        s = x[13] + x[12]; x[14] ^= (s << (UInt32)13) | (s >> (32 - (UInt32)13));
+        s = x[14] + x[13]; x[15] ^= (s << (UInt32)18) | (s >> (32 - (UInt32)18));
     }
     
     for (NSInteger i = 0; i < 16; i++){
-        NSInteger value = x[i] + _input[i];
+        UInt32 value = x[i] + _input[i];
         NSInteger nOfs = i << 2;
-        _output[nOfs] = (Byte) (value);
-        _output[nOfs + 1] = (Byte) (value >> 8);
-        _output[nOfs + 2] = (Byte) (value >> 16);
-        _output[nOfs + 3] = (Byte) (value >> 24);
+        _output[nOfs] = (Byte) ((value >> 0) & 0xff);
+        _output[nOfs + 1] = (Byte) ((value >> 8) & 0xff);
+        _output[nOfs + 2] = (Byte) ((value >> 16) & 0xff);
+        _output[nOfs + 3] = (Byte) ((value >> 24) & 0xff);
     }
 }
 
@@ -130,18 +130,18 @@ UInt32 readInt32LE(Byte data[], NSInteger offset) {
 
 - (void)increaseBlockPosition {
     _posBlock++;
-    long block = _posBlock;
+    unsigned long block = _posBlock;
     _input[8] = (UInt32)(block & 0x00000000ffffffff);
     _input[9] = (UInt32)(block >> 32);
     [self calculateEncryptionOutputFromInput];
 }
 
-- (void)setPosition:(long)position {
+- (void)setPosition:(unsigned long)position {
     [self setBlockPosition:(position >> 6)];
     _posRemainder = (UInt32)(position & 0x3f);
 }
 
-- (void)setBlockPosition:(long)block {
+- (void)setBlockPosition:(unsigned long)block {
     if (_posBlock != block) {
         _posBlock = block;
         _input[8] = (UInt32)(block & 0x00000000ffffffff);

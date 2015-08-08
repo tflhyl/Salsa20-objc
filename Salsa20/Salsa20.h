@@ -14,6 +14,6 @@
 
 - (void)cryptInput:(Byte[])input inOffset:(NSInteger)inOffset output:(Byte[])output outOffset:(NSInteger)outOffset length:(NSInteger)length;
 
-- (void)setPosition:(long)position;
+- (void)setPosition:(unsigned long)position;
 
 @end
